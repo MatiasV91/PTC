@@ -1,31 +1,163 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model PTCData.ProductosViewModel
+@{
+    ViewBag.Title = "PTC";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@using (Html.BeginForm())
+{
+    //Hidden Fields
+    @Html.HiddenFor(m => m.Comando)
+    @Html.HiddenFor(m => m.Modo)
+    @Html.HiddenFor(m => m.Argumento)
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+    
+    //Area de Busqueda
+    if (Model.EsAreaBusquedaVisible)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">Buscar Productos</h1>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Buscar.NombreProducto, "Nombre del Producto")
+                    @Html.TextBoxFor(m => m.Buscar.NombreProducto, new { @class="form-control"})
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button id="btnBuscar" class="btn btn-sm btn-primary" data-pdsa-action="buscar">
+                <i class="glyphicon glyphicon-search"></i>
+                &nbsp;Buscar</button>
+                <button id="btnReset" class="btn btn-sm btn-primary" data-pdsa-action="resetbusqueda">
+                <i class="glyphicon glyphicon-share-alt"></i>
+                &nbsp;Reiniciar</button>
+                <button id="btnAgregar" class="btn btn-sm btn-success" data-pdsa-action="agregar">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    &nbsp;Agregar
+                </button>
+            </div>
+        </div>
+    }
+
+
+    //Area de Detalles
+    if (Model.EsAreaDetallesVisible)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">Informacion del Producto</h1>
+            </div>
+            <div class="panel-body">
+                <!--Area de Mensajes-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        @if (!Model.EsValido)
+                        {
+                            <div class="alert alert-danger alert-dismissable" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">
+                                        &times;
+                                    </span>
+                                    <span class="sr-only">Cerrar</span>
+                                </button>
+                                @Html.ValidationSummary(false)
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <!--Area de inputs-->
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entidad.NombreProducto, "Nombre del Producto")
+                    @Html.TextBoxFor(m => m.Entidad.NombreProducto , new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entidad.FechaIntroduccion, "Fecha de Introduccion")
+                    @Html.TextBoxFor(m => m.Entidad.FechaIntroduccion, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entidad.Url)
+                    @Html.TextBoxFor(m => m.Entidad.Url, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entidad.Precio)
+                    @Html.TextBoxFor(m => m.Entidad.Precio, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button id="btnGuardar" class="btn btn-sm btn-primary" data-pdsa-action="guardar">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                            &nbsp;Guardar
+                        </button>
+                        <button id="btnCancelar" class="btn btn-sm btn-primary" data-pdsa-action="cancelar" formnovalidate="formnovalidate">
+                            <i class="glyphicon glyphicon-remove-circle"></i>
+                            &nbsp;Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    //Area de Lista
+    if (Model.EsAreaListaVisible)
+    {
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="pdsa-action-button-column">Editar</th>
+                        <th>Nombre del Producto</th>
+                        <th>Fecha de Entrada</th>
+                        <th>Url</th>
+                        <th>Precio</th>
+                        <th class="pdsa-action-button-column">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Productos)
+                    {
+                        <tr>
+                            <td class="pdsa-action-button-column">
+                                <a href="#" class="btn btn-default btn-sm" data-pdsa-action="editar" data-pdsa-val="@item.ProductoId">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                            </td>
+                            <td>@item.NombreProducto</td>
+                            <td>@item.FechaIntroduccion</td>
+                            <td>@item.Url</td>
+                            <td>@item.Precio.ToString("c")</td>
+                            <td class="pdsa-action-button-column">
+                                <a href="#" class="btn btn-default btn-sm" data-pdsa-action="eliminar" 
+                                            data-pdsa-val="@item.ProductoId" onclick="return confirm('¿Eliminar este Producto?');">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+
+}
+
+@section scripts{
+    
+    <script>
+        $(document).ready(function () {
+            $("[data-pdsa-action]").on("click", function (e) {
+                e.preventDefault();
+                $("#Comando").val($(this).data("pdsa-action"));
+                $("#Argumento").val($(this).data("pdsa-val"));
+                $("form").submit();
+            });
+        });
+    </script> 
+}

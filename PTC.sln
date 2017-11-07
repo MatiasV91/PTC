@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTC", "PTC\PTC.csproj", "{70A6A451-1003-4087-AC1A-2A46B290DC96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTCData", "PTCData\PTCData.csproj", "{298DE750-3753-4FEA-AB8C-A3FD1505BB9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTCComun", "PTCComun\PTCComun.csproj", "{3D8B8DC9-1613-4910-BD6B-D2D349A65607}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{70A6A451-1003-4087-AC1A-2A46B290DC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70A6A451-1003-4087-AC1A-2A46B290DC96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70A6A451-1003-4087-AC1A-2A46B290DC96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{298DE750-3753-4FEA-AB8C-A3FD1505BB9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298DE750-3753-4FEA-AB8C-A3FD1505BB9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298DE750-3753-4FEA-AB8C-A3FD1505BB9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298DE750-3753-4FEA-AB8C-A3FD1505BB9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8B8DC9-1613-4910-BD6B-D2D349A65607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8B8DC9-1613-4910-BD6B-D2D349A65607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8B8DC9-1613-4910-BD6B-D2D349A65607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8B8DC9-1613-4910-BD6B-D2D349A65607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

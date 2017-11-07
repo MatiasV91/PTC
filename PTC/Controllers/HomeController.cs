@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PTCData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,21 +11,24 @@ namespace PTC.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ProductosViewModel vm = new ProductosViewModel();
+            vm.PedidoMgr();
+            return View(vm);
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(ProductosViewModel vm)
         {
-            ViewBag.Message = "Your application description page.";
+            vm.EsValido = ModelState.IsValid;
+            vm.PedidoMgr();
 
-            return View();
+            if (vm.EsValido)
+            {
+                ModelState.Clear();
+            }
+            return View(vm);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
     }
 }
