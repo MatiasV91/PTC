@@ -68,6 +68,7 @@
                     </div>
                 </div>
                 <!--Area de inputs-->
+                @Html.HiddenFor(m => m.Entidad.ProductosId)
                 <div class="form-group">
                     @Html.LabelFor(m => m.Entidad.NombreProducto, "Nombre del Producto")
                     @Html.TextBoxFor(m => m.Entidad.NombreProducto , new { @class = "form-control" })
@@ -109,6 +110,7 @@
     {
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped table-hover">
+                
                 <thead>
                     <tr>
                         <th class="pdsa-action-button-column">Editar</th>
@@ -124,17 +126,17 @@
                     {
                         <tr>
                             <td class="pdsa-action-button-column">
-                                <a href="#" class="btn btn-default btn-sm" data-pdsa-action="editar" data-pdsa-val="@item.ProductoId">
+                                <a href="#" class="btn btn-default btn-sm" data-pdsa-action="editar" data-pdsa-val="@item.ProductosId">
                                     <i class="glyphicon glyphicon-edit"></i>
                                 </a>
                             </td>
                             <td>@item.NombreProducto</td>
-                            <td>@item.FechaIntroduccion</td>
+                            <td style="text-align:center">@item.FechaIntroduccion.ToString("d")</td>
                             <td>@item.Url</td>
                             <td>@item.Precio.ToString("c")</td>
                             <td class="pdsa-action-button-column">
                                 <a href="#" class="btn btn-default btn-sm" data-pdsa-action="eliminar" 
-                                            data-pdsa-val="@item.ProductoId" onclick="return confirm('¿Eliminar este Producto?');">
+                                            data-pdsa-val="@item.ProductosId" onclick="return confirm('¿Eliminar este Producto?');">
                                     <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </td>

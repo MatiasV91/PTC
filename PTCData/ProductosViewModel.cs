@@ -33,7 +33,10 @@ namespace PTCData
             ProductosManager mgr = new ProductosManager();
             if (Modo == "Agregar")
             {
-                mgr.Insertar(Entidad);
+                if (EsValido)
+                {
+                    mgr.Insertar(Entidad);
+                }               
             }
             else
             {
@@ -65,7 +68,7 @@ namespace PTCData
         {
             ProductosManager mgr = new ProductosManager();
             Entidad = new Productos();
-            Entidad.ProductoId = Convert.ToInt32(Argumento);
+            Entidad.ProductosId = Convert.ToInt32(Argumento);
             mgr.Eliminar(Entidad);
             Get();
             base.Eliminar();

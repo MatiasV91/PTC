@@ -35,7 +35,7 @@ namespace PTCComun
                     Get();
                     break;
                 case "agregar":
-                    Agregar();
+                        Agregar();     
                     break;
                 case "guardar":
                     Guardar();

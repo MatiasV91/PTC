@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.ModelBinding;
 
 namespace PTCData
 {
     public class ProductosManager
     {
+        private EFDbContext _contexto;
+
         public ProductosManager()
         {
+            _contexto = new EFDbContext();
             ErroresValidacion = new List<KeyValuePair<string, string>>();
         }
 
@@ -24,7 +28,7 @@ namespace PTCData
         public List<Productos> Get(Productos ent)
         {
             List<Productos> ret = new List<Productos>();
-            ret = CrearMockData();
+            ret = _contexto.Productos.ToList();
             if (!string.IsNullOrEmpty(ent.NombreProducto))
             {
                 ret = ret.Where(p => p.NombreProducto.ToLower().Contains(ent.NombreProducto.ToLower())).ToList();
@@ -34,11 +38,7 @@ namespace PTCData
 
         public Productos Get(int productoId)
         {
-            List<Productos> ret = new List<Productos>();
-
-            Productos entidad = null;
-            ret = CrearMockData();
-            entidad = ret.Find(p => p.ProductoId == productoId);
+            var entidad = _contexto.Productos.SingleOrDefault(p => p.ProductosId == productoId);
             return entidad;
         }
 
@@ -48,14 +48,28 @@ namespace PTCData
             ret = Validar(entidad);
             if (ret)
             {
-                //TODO: Codigo para Actualizar entry
+                var producto = _contexto.Productos.SingleOrDefault(p => p.ProductosId == entidad.ProductosId);
+                if(producto != null)
+                {
+                    producto.NombreProducto = entidad.NombreProducto;
+                    producto.Precio = entidad.Precio;
+                    producto.FechaIntroduccion = entidad.FechaIntroduccion;
+                    producto.Url = entidad.Url;
+                    _contexto.SaveChanges();
+                }            
             }
             return ret;
         }
 
         public bool Eliminar(Productos entidad)
         {
-            //TODO: Codigo para eliminar producto
+            var producto = _contexto.Productos.SingleOrDefault(p => p.ProductosId == entidad.ProductosId);
+            if(producto != null)
+            {
+                _contexto.Productos.Remove(producto);
+                _contexto.SaveChanges();
+            }
+            
             return true;
         }
 
@@ -80,8 +94,11 @@ namespace PTCData
             ret = Validar(entidad);
             if (ret)
             {
-                //TODO: Codigo par INSERTAR
+                
+                _contexto.Productos.Add(entidad);
+                _contexto.SaveChanges();
             }
+            
             return ret;
         }
 
@@ -93,7 +110,7 @@ namespace PTCData
 
             ret.Add(new Productos()
             {
-                ProductoId = 1,
+                ProductosId = 1,
                 NombreProducto = "Extendiendo Bootstrap...",
                 FechaIntroduccion = Convert.ToDateTime("6/11/2015"),
                 Url = "URL",
@@ -102,7 +119,7 @@ namespace PTCData
 
             ret.Add(new Productos()
             {
-                ProductoId = 1,
+                ProductosId = 1,
                 NombreProducto = "Desarrollando en Bootstrap...",
                 FechaIntroduccion = Convert.ToDateTime("6/11/2016"),
                 Url = "URL",
@@ -111,7 +128,7 @@ namespace PTCData
 
             ret.Add(new Productos()
             {
-                ProductoId = 1,
+                ProductosId = 1,
                 NombreProducto = "Desarrollar Apps Moviles.",
                 FechaIntroduccion = Convert.ToDateTime("6/10/2015"),
                 Url = "URL",
@@ -120,7 +137,7 @@ namespace PTCData
 
             ret.Add(new Productos()
             {
-                ProductoId = 1,
+                ProductosId = 1,
                 NombreProducto = "Entendiendo Bootstrap...",
                 FechaIntroduccion = Convert.ToDateTime("6/05/2015"),
                 Url = "URL",
@@ -129,7 +146,7 @@ namespace PTCData
 
             ret.Add(new Productos()
             {
-                ProductoId = 1,
+                ProductosId = 1,
                 NombreProducto = "Desarrollar Sitios Web...",
                 FechaIntroduccion = Convert.ToDateTime("6/02/2017"),
                 Url = "URL",
@@ -138,7 +155,7 @@ namespace PTCData
 
             ret.Add(new Productos()
             {
-                ProductoId = 1,
+                ProductosId = 1,
                 NombreProducto = "Creando un Negocio...",
                 FechaIntroduccion = Convert.ToDateTime("9/11/2015"),
                 Url = "URL",

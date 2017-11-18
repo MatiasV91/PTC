@@ -26,6 +26,13 @@ namespace PTC.Controllers
             {
                 ModelState.Clear();
             }
+            else
+            {
+                foreach(KeyValuePair<string,string> error in vm.ErroresValidacion)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
             return View(vm);
         }
 
