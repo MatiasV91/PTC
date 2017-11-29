@@ -5,7 +5,7 @@ Utiliza una sola Vista, la cual activa o desactiva areas de la pagina segun nece
 
 DEMO:
 
-http://bit.ly/PTCMv91
+http://bit.ly/ptcmv91
 
 
 Imagen:
