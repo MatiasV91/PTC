@@ -3,9 +3,6 @@ PTC Es una Lista de Productos Simple
 
 Utiliza una sola Vista, la cual activa o desactiva areas de la pagina segun necesario
 
-DEMO:
-
-http://bit.ly/ptcmv91
 
 
 Imagen:
