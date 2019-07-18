@@ -9,6 +9,10 @@ namespace PTCData
 {
     public class EFDbContext : DbContext
     {
+        public EFDbContext() : base("DefaultConnection")
+        {
+
+        }
         public DbSet<Productos> Productos { get; set; }
     }
 }
